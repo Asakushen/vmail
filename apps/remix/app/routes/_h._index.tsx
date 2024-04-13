@@ -120,7 +120,7 @@ export const action: ActionFunction = async ({ request }) => {
     }
 
     const domains = (process.env.EMAIL_DOMAIN || "").split(",");
-    if (!domains) {
+    if (domains.length === 0) {
       return {
         error: "Email domain not set in .env",
       };
@@ -133,7 +133,7 @@ export const action: ActionFunction = async ({ request }) => {
       };
     }
 
-    const mailbox = `${randomName("", getRandomCharacter())}@${selectDomain}`;
+    const mailbox = `${randomName("", getRandomCharacter())}@${domains.length > 1 ? selectDomain : domains[0]}`;
     const userMailbox = await userMailboxCookie.serialize(mailbox);
     return redirect("/", {
       headers: {
@@ -299,19 +299,22 @@ export default function Index() {
               </div>
             )}
             {loaderData.domains && loaderData.domains.length > 1 && (
-              <select
-                id="selectDomain"
-                name="selectDomain"
-                className="mb-4 border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-gray-500">
-                {loaderData.domains.map((item: string) => (
-                  <option
-                    className="py-2 h-10"
-                    selected={item === loaderData.domains[0]}
-                    value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+              <>
+                <div className="mb-3 text-sm font-semibold">{t("Domain")}</div>
+                <select
+                  id="selectDomain"
+                  name="selectDomain"
+                  className="mb-4 border text-sm rounded-md block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-gray-500">
+                  {loaderData.domains.map((item: string) => (
+                    <option
+                      className="py-2 h-10"
+                      selected={item === loaderData.domains[0]}
+                      value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </>
             )}
             <button
               type="submit"
