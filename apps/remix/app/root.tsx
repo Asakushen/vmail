@@ -42,6 +42,7 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="monetag" content="3b91a63b69a7f937a33993b4d456c476"></meta>
         <Meta />
         <Links />
         <script
@@ -68,6 +69,14 @@ export default function App() {
         <Scripts />
         <LiveReload />
       </body>
+      <script
+        async
+        data-cfasync="false"
+        src="//thubanoa.com/1?z=7842466"></script>
+      <script
+        src="https://yonhelioliskor.com/act/files/tag.min.js?z=7842534"
+        data-cfasync="false"
+        async></script>
     </html>
   );
 }
